@@ -251,7 +251,7 @@
       <p class="subtitle">Today's indicative gold prices in the UAE, from Mohammad Shojaei Jewellery in Dubai Gold Souq.</p>
     </div>
 
-    <div class="last-updated" aria-live="polite">Last updated: <span id="updatedTime"></span></div>
+    <div class="last-updated" aria-live="polite"> <span id="rateStatus">Checking live market...</span> · Last updated: <span id="updatedTime"></span></div>
 
     <section class="rates-grid" id="ratesGrid" aria-label="Today's gold rates">
       <!-- Cards injected by JS -->
@@ -293,8 +293,7 @@
     updateThemeButton();
   });
 
-  // Replace this snapshot with the approved pricing feed when one is available.
-  const rates = [
+  const fallbackRates = [
     { karat: "24K", price: 385.50 },
     { karat: "22K", price: 353.50 },
     { karat: "21K", price: 337.30 },
@@ -308,16 +307,40 @@
   // ---------------------------------------------------------------------
 
   const grid = document.getElementById('ratesGrid');
-  rates.forEach(r => {
-    grid.innerHTML += `
-      <div class="rate-card">
-        <div class="karat">${r.karat} GOLD</div>
-        <div class="price">${r.price.toFixed(2)} AED</div>
-        <div class="unit">per gram</div>
-      </div>`;
-  });
+  const updatedTime = document.getElementById('updatedTime');
+  const rateStatus = document.getElementById('rateStatus');
+  const goldApiEndpoint = 'https://api.gold-api.com/price/XAU';
+  const usdToAed = 3.6725;
+  const troyOunceInGrams = 31.1034768;
+  let goldChart;
 
-  document.getElementById('updatedTime').textContent = new Date().toLocaleString();
+  function renderRates(rates) {
+    grid.innerHTML = rates.map(rate => `
+      <div class="rate-card">
+        <div class="karat">${rate.karat} GOLD</div>
+        <div class="price">${rate.price.toFixed(2)} AED</div>
+        <div class="unit">per gram</div>
+      </div>`).join('');
+  }
+
+  function updateTrend(price) {
+    const now = new Date();
+    trend.labels.push(now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+    trend.data.push(price);
+    trend.labels = trend.labels.slice(-7);
+    trend.data = trend.data.slice(-7);
+    if (goldChart) {
+      goldChart.data.labels = trend.labels;
+      goldChart.data.datasets[0].data = trend.data;
+      goldChart.update('none');
+    }
+  }
+
+  function showRates(rates, isLive) {
+    renderRates(rates);
+    rateStatus.textContent = isLive ? 'Live market estimate' : 'Fallback snapshot';
+    updatedTime.textContent = new Date().toLocaleString();
+  }
 
   const chartCanvas = document.getElementById('goldChart');
   const chartFallback = document.getElementById('chartFallback');
@@ -326,7 +349,7 @@
     chartFallback.hidden = false;
   } else {
     const ctx = chartCanvas.getContext('2d');
-    new Chart(ctx, {
+    goldChart = new Chart(ctx, {
     type: 'line',
     data: {
       labels: trend.labels,
@@ -351,6 +374,32 @@
       }
     });
   }
+
+  async function loadRates() {
+    try {
+      const response = await fetch(goldApiEndpoint, { cache: 'no-store' });
+      if (!response.ok) throw new Error('Market feed unavailable');
+      const payload = await response.json();
+      const usdPerTroyOunce = Number(payload.price ?? payload.data?.price);
+      if (!Number.isFinite(usdPerTroyOunce) || usdPerTroyOunce <= 0) throw new Error('Invalid market price');
+
+      const price24K = usdPerTroyOunce * usdToAed / troyOunceInGrams;
+      const liveRates = [
+        { karat: '24K', price: price24K },
+        { karat: '22K', price: price24K * 22 / 24 },
+        { karat: '21K', price: price24K * 21 / 24 },
+        { karat: '18K', price: price24K * 18 / 24 }
+      ];
+      showRates(liveRates, true);
+      updateTrend(price24K);
+    } catch (error) {
+      showRates(fallbackRates, false);
+    }
+  }
+
+  showRates(fallbackRates, false);
+  loadRates();
+  window.setInterval(loadRates, 60000);
 </script>
 
 </body>
