@@ -83,6 +83,12 @@
     .featured-card-body { padding: 16px; }
     .featured-card h3 { margin: 0 0 5px; font: 19px Georgia, serif; }
     .featured-card p { margin: 0; color: var(--muted); font-size: 12px; }
+    .why-us { padding: 78px 0 24px; }
+    .why-us-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .why-us-card { padding: 28px 22px; background: var(--cream); border: 1px solid var(--line); }
+    .why-us-card h3 { margin: 0 0 10px; font: 25px Georgia, serif; }
+    .why-us-card p { margin: 0; color: var(--muted); line-height: 1.7; }
+    .why-us-tag { display: inline-block; margin-bottom: 12px; color: var(--gold-dark); font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; }
     .shop-ad { padding: 30px 0; color: white; background: var(--navy); }
     .shop-ad-inner { display: flex; align-items: center; justify-content: space-between; gap: 28px; }
     .shop-ad-copy h2 { margin: 7px 0 8px; font-size: 30px; }
@@ -112,6 +118,7 @@
       .categories { grid-template-columns: 1fr; }
       .products-grid { grid-template-columns: 1fr; }
       .featured-grid { grid-template-columns: repeat(2, 1fr); }
+      .why-us-grid { grid-template-columns: 1fr; }
       h2 { font-size: 34px; }
       .topbar-inner { display: block; line-height: 1.8; }
       .social-links { gap: 10px; line-height: 1.5; }
@@ -227,6 +234,33 @@
       </div>
     </section>
 
+    <section class="why-us" data-reveal>
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Why clients choose us</span>
+          <h2>Trusted jewellery guidance in Dubai</h2>
+          <p>From premium gold pieces to luxury watches, our focus is on genuine value, transparent pricing, and customer care.</p>
+        </div>
+        <div class="why-us-grid">
+          <article class="why-us-card">
+            <span class="why-us-tag">Authentic</span>
+            <h3>Certified quality</h3>
+            <p>We work with precious metals, diamonds and timepieces selected for real lasting value and customer trust.</p>
+          </article>
+          <article class="why-us-card">
+            <span class="why-us-tag">Convenient</span>
+            <h3>Fast WhatsApp support</h3>
+            <p>Get answers quickly on pricing, availability, custom requests and showroom visits from our team.</p>
+          </article>
+          <article class="why-us-card">
+            <span class="why-us-tag">Local</span>
+            <h3>Dubai Gold Souq</h3>
+            <p>Visit the heart of Deira for expert service, direct pricing and a curated jewellery experience.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <section class="video-ad" aria-label="Mohammad Shojaei Jewellery video advertisement" data-reveal>
       <video autoplay muted loop playsinline preload="metadata" aria-label="Jewellery and luxury watch showcase video">
         <source src="https://mohammadshojaei.ae/assets/video/35575-407595493.mp4-420-4.mp4" type="video/mp4">
@@ -282,7 +316,7 @@
         </div>
         <div class="products-grid">
           <article class="product-card">
-            <img class="product-image" src="assets/img/products/silver/silver-bar-namoh.jpg" alt="NAMOH 1 kilo fine silver bar, 999.9 purity" loading="lazy">
+            <img class="product-image" src="https://images.unsplash.com/photo-1617038220319-276d3cfab638?auto=format&fit=crop&w=900&q=80" alt="Fine silver bar high resolution" loading="lazy">
             <div class="product-info">
               <h3>NAMOH Silver Bar</h3>
               <p class="product-meta">1 kilo · Fine silver · 999.9</p>
@@ -290,7 +324,7 @@
             </div>
           </article>
           <article class="product-card">
-            <img class="product-image" src="assets/img/products/silver/silver-bar-prestige.jpg" alt="Prestige Precious Metals 1000 gram fine silver bar" loading="lazy">
+            <img class="product-image" src="https://images.unsplash.com/photo-1573408301185-9146fe634ad0?auto=format&fit=crop&w=900&q=80" alt="Prestige silver bar product shot" loading="lazy">
             <div class="product-info">
               <h3>Prestige Silver Bar</h3>
               <p class="product-meta">1000 g · Fine silver · 999.9</p>
@@ -298,7 +332,7 @@
             </div>
           </article>
           <article class="product-card">
-            <img class="product-image" src="assets/img/products/silver/silver-bar-abc.jpg" alt="ABC 1 kilo fine silver bar, 999.5 purity" loading="lazy">
+            <img class="product-image" src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?auto=format&fit=crop&w=900&q=80" alt="Silver bullion product display" loading="lazy">
             <div class="product-info">
               <h3>ABC Silver Bar</h3>
               <p class="product-meta">1 kilo · Fine silver · 999.5</p>
