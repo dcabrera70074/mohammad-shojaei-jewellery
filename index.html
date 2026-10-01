@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mohammad Shojaei Jewellery | Dubai Gold Souq</title>
+  <meta name="description" content="Gold jewellery, natural diamonds and luxury watches from Mohammad Shojaei Jewellery in Dubai Gold Souq.">
+  <style>
+    :root {
+      --navy: #142b43;
+      --gold: #b68d40;
+      --gold-dark: #8a6a2f;
+      --mist: #f3f7fc;
+      --ink: #24313d;
+      --muted: #64717d;
+      --cream: #fffdf9;
+      --line: #e4e9ee;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; color: var(--ink); background: var(--mist); font-family: Arial, sans-serif; }
+    .container { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+    .topbar { padding: 9px 0; color: white; background: var(--navy); font-size: 12px; }
+    .topbar-inner { display: flex; justify-content: space-between; gap: 16px; }
+    .social-links { display: flex; gap: 13px; }
+    .social-links a { color: #d8b76e; text-decoration: none; }
+    .social-links a:hover { color: white; }
+    .site-header { position: sticky; top: 0; z-index: 10; background: rgba(255,253,249,.94); border-bottom: 1px solid #e7edf3; backdrop-filter: blur(12px); }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; gap: 28px; min-height: 76px; }
+    .brand { display: inline-flex; align-items: center; gap: 10px; color: var(--ink); font: 22px Georgia, serif; text-decoration: none; }
+    .brand-mark { width: 48px; height: 48px; object-fit: contain; }
+    .brand-mark img { display: block; width: 100%; height: 100%; object-fit: contain; }
+    .brand span { color: var(--gold-dark); }
+    nav { display: flex; gap: 24px; }
+    nav a { position: relative; color: var(--ink); font-size: 13px; text-decoration: none; }
+    nav a::after { position: absolute; right: 0; bottom: -9px; left: 0; height: 2px; content: ''; background: var(--gold); transform: scaleX(0); transform-origin: right; transition: transform 180ms ease; }
+    nav a:hover::after, nav a:focus-visible::after { transform: scaleX(1); transform-origin: left; }
+    .whatsapp, .hero-link { padding: 11px 15px; color: #063d1c; background: #25d366; font-size: 12px; font-weight: 700; text-decoration: none; transition: transform 180ms ease, box-shadow 180ms ease; }
+    .whatsapp:hover, .hero-link:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(37,211,102,.22); }
+    .theme-toggle { padding: 10px 12px; color: var(--ink); background: transparent; border: 1px solid var(--line); cursor: pointer; font: inherit; font-size: 12px; }
+    .theme-toggle:hover { border-color: var(--gold); color: var(--gold-dark); }
+    .hero { position: relative; overflow: hidden; padding: 100px 0 110px; color: white; background: linear-gradient(110deg, #142b43 0%, #244865 68%, #8a6a2f 170%); }
+    .hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .42; }
+    .hero-overlay { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(20,43,67,.94), rgba(20,43,67,.62) 58%, rgba(20,43,67,.3)); }
+    .hero::after { position: absolute; right: -90px; bottom: -130px; width: 360px; height: 360px; border: 1px solid rgba(216,183,110,.3); border-radius: 50%; content: ''; box-shadow: 0 0 0 32px rgba(216,183,110,.06), 0 0 0 64px rgba(216,183,110,.04); }
+    .hero-copy { position: relative; z-index: 1; animation: rise-in 700ms ease both; }
+    .eyebrow { color: #d8b76e; font-size: 12px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase; }
+    h1, h2 { font-family: Georgia, serif; font-weight: 400; }
+    h1 { max-width: 680px; margin: 16px 0; font-size: clamp(42px, 7vw, 76px); line-height: 1.04; }
+    .hero p { max-width: 570px; margin: 0 0 30px; color: #d9e1e8; font-size: 17px; line-height: 1.7; }
+    .hero-actions { display: flex; align-items: center; gap: 18px; }
+    .hero-link { display: inline-block; color: #063d1c; }
+    .hero-link-secondary { color: #fff; font-size: 13px; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,.5); padding-bottom: 3px; }
+    .section { padding: 76px 0; }
+    .section-heading { max-width: 620px; margin-bottom: 30px; }
+    h2 { margin: 10px 0; font-size: 42px; }
+    .section-heading p { color: var(--muted); line-height: 1.7; }
+    .categories { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .category { position: relative; min-height: 170px; padding: 25px; background: var(--cream); border: 1px solid var(--line); transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease; }
+    .category::after { position: absolute; right: 25px; bottom: 24px; color: var(--gold-dark); content: '↗'; font-size: 20px; opacity: 0; transform: translate(-6px, 6px); transition: opacity 220ms ease, transform 220ms ease; }
+    .category:hover { border-color: #cfb77f; box-shadow: 0 14px 28px rgba(20,43,67,.08); transform: translateY(-6px); }
+    .category:hover::after { opacity: 1; transform: translate(0, 0); }
+    .category h3 { margin: 0 0 8px; font: 25px Georgia, serif; }
+    .category p { margin: 0; color: var(--muted); line-height: 1.5; }
+    .rates-section { padding: 76px 0 90px; background: #e8f0f7; }
+    .rates-heading { display: flex; align-items: end; justify-content: space-between; gap: 28px; }
+    .market-status { display: inline-flex; align-items: center; gap: 8px; padding: 9px 12px; color: var(--gold-dark); background: rgba(255,253,249,.72); font-size: 12px; white-space: nowrap; }
+    .market-status::before { width: 7px; height: 7px; border-radius: 50%; content: ''; background: #5a9a68; box-shadow: 0 0 0 5px rgba(90,154,104,.12); }
+    .rates-frame { width: 100%; min-height: 730px; border: 0; background: transparent; }
+    .products-section { padding: 86px 0; background: var(--cream); }
+    .products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .product-card { overflow: hidden; background: white; border: 1px solid var(--line); transition: transform 220ms ease, box-shadow 220ms ease; }
+    .product-card:hover { transform: translateY(-6px); box-shadow: 0 16px 30px rgba(20,43,67,.12); }
+    .product-image { display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover; background: #dce4e9; }
+    .product-info { padding: 20px; }
+    .product-info h3 { margin: 0 0 7px; font: 25px Georgia, serif; }
+    .product-meta { margin: 0 0 18px; color: var(--muted); font-size: 13px; }
+    .product-link { display: inline-block; padding: 10px 13px; color: #063d1c; background: #25d366; font-size: 12px; font-weight: 700; text-decoration: none; }
+    .featured-section { padding: 86px 0; background: var(--mist); }
+    .featured-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .featured-card { overflow: hidden; background: var(--cream); border: 1px solid var(--line); transition: transform 220ms ease, box-shadow 220ms ease; }
+    .featured-card:hover { transform: translateY(-6px); box-shadow: 0 16px 30px rgba(20,43,67,.12); }
+    .featured-card img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+    .featured-card-body { padding: 16px; }
+    .featured-card h3 { margin: 0 0 5px; font: 19px Georgia, serif; }
+    .featured-card p { margin: 0; color: var(--muted); font-size: 12px; }
+    .shop-ad { padding: 30px 0; color: white; background: var(--navy); }
+    .shop-ad-inner { display: flex; align-items: center; justify-content: space-between; gap: 28px; }
+    .shop-ad-copy h2 { margin: 7px 0 8px; font-size: 30px; }
+    .shop-ad-copy p { margin: 0; color: #c8d4df; font-size: 14px; line-height: 1.6; }
+    .shop-ad-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+    .shop-ad-link { padding: 12px 15px; color: var(--navy); background: #d8b76e; font-size: 12px; font-weight: 700; text-decoration: none; }
+    .shop-ad-link-alt { padding: 11px 14px; color: white; border: 1px solid rgba(255,255,255,.45); font-size: 12px; text-decoration: none; }
+    .video-ad { position: relative; min-height: 420px; overflow: hidden; color: white; background: #101923; }
+    .video-ad video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .58; }
+    .video-ad-overlay { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(11,25,39,.92), rgba(11,25,39,.35)); }
+    .video-ad-content { position: relative; z-index: 1; display: flex; min-height: 420px; align-items: center; }
+    .video-ad-copy { max-width: 560px; }
+    .video-ad-copy h2 { margin: 10px 0; font-size: clamp(34px, 5vw, 58px); }
+    .video-ad-copy p { max-width: 480px; color: #d8e1e8; line-height: 1.7; }
+    .video-ad-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+    .floating-whatsapp { position: fixed; right: 22px; bottom: 22px; z-index: 12; display: grid; width: 52px; height: 52px; place-items: center; border-radius: 50%; color: #063d1c; background: #25d366; box-shadow: 0 10px 24px rgba(6,61,28,.22); font-size: 12px; font-weight: 700; text-decoration: none; transition: transform 180ms ease; }
+    .floating-whatsapp:hover { transform: translateY(-4px) scale(1.04); }
+    [data-reveal] { opacity: 0; transform: translateY(24px); transition: opacity 650ms ease, transform 650ms ease; }
+    [data-reveal].is-visible { opacity: 1; transform: translateY(0); }
+    @keyframes rise-in { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+    .footer { padding: 30px 0; color: #d9e1e8; background: var(--navy); font-size: 13px; }
+    @media (max-width: 700px) {
+      .container { width: min(100% - 32px, 1120px); }
+      nav { display: none; }
+      .hero { padding: 72px 0 82px; }
+      .hero-actions, .rates-heading { align-items: flex-start; flex-direction: column; }
+      .categories { grid-template-columns: 1fr; }
+      .products-grid { grid-template-columns: 1fr; }
+      .featured-grid { grid-template-columns: repeat(2, 1fr); }
+      h2 { font-size: 34px; }
+      .topbar-inner { display: block; line-height: 1.8; }
+      .social-links { gap: 10px; line-height: 1.5; }
+      .floating-whatsapp { right: 16px; bottom: 16px; }
+      .shop-ad-inner { align-items: flex-start; flex-direction: column; }
+      .header-inner { flex-wrap: wrap; gap: 12px; }
+      .brand { min-width: 0; font-size: 17px; }
+      .brand-mark { width: 38px; height: 38px; }
+      .header-inner .theme-toggle { margin-left: auto; padding: 8px 9px; font-size: 11px; }
+      .header-inner .whatsapp { padding: 9px 10px; font-size: 11px; }
+    }
+    @media (max-width: 420px) {
+      .featured-grid { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    }
+    body.dark-mode { --mist: #101923; --ink: #f5f1e9; --muted: #b8c1ca; --cream: #172431; --line: #334452; background: var(--mist); }
+    body.dark-mode .site-header, body.dark-mode .category, body.dark-mode .featured-card { background: var(--cream); }
+    body.dark-mode .section-heading p, body.dark-mode .category p, body.dark-mode .featured-card p { color: var(--muted); }
+    body.dark-mode .rates-section { background: #1c2b38; }
+    body.dark-mode .products-section { background: #101923; }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="container topbar-inner">
+      <span>+971 54 399 9954</span>
+      <span>Dubai Gold Souq, Deira</span>
+      <div class="social-links" aria-label="Social and marketplace links">
+        <a href="https://www.facebook.com/profile.php?id=61594684529999" target="_blank" rel="noopener">Facebook</a>
+        <a href="https://www.tiktok.com/@mohammad.shojaei.jewelry" target="_blank" rel="noopener">TikTok</a>
+        <a href="https://www.instagram.com/mohammad.shojaei.jewellery/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.noon.com/uae-en/seller/p-621040/" target="_blank" rel="noopener">Noon</a>
+      </div>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="Mohammad Shojaei Jewellery home">
+        <span class="brand-mark"><img src="https://mohammadshojaei.ae/assets/img/logo.png" alt=""></span>
+        <span>Mohammad Shojaei <span>Jewellery</span></span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="#collections">Collections</a>
+        <a href="#gold-rates">Gold Rates</a>
+        <a href="https://mohammadshojaei.ae/diamonds.php">Diamonds</a>
+        <a href="https://mohammadshojaei.ae/watches.php">Watches</a>
+      </nav>
+      <a class="whatsapp" href="https://wa.me/971543999954">WhatsApp</a>
+      <button class="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">Dark mode</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <video class="hero-video" autoplay muted loop playsinline preload="metadata" aria-label="Mohammad Shojaei Jewellery showcase video">
+        <source src="https://mohammadshojaei.ae/assets/video/35575-407595493.mp4-420-4.mp4" type="video/mp4">
+      </video>
+      <div class="hero-overlay" aria-hidden="true"></div>
+      <div class="container hero-copy">
+        <span class="eyebrow">Dubai Gold Souq · Deira</span>
+        <h1>Timeless jewellery.<br><em>Exceptional value.</em></h1>
+        <p>Discover gold jewellery, natural diamonds and luxury watches in the heart of Dubai.</p>
+        <div class="hero-actions">
+          <a class="hero-link" href="#gold-rates">View gold rates</a>
+          <a class="hero-link-secondary" href="https://wa.me/971543999954">Speak with us on WhatsApp</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="collections" data-reveal>
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Our collections</span>
+          <h2>Made to be remembered</h2>
+          <p>Explore carefully selected pieces from Mohammad Shojaei Jewellery.</p>
+        </div>
+        <div class="categories">
+          <article class="category"><h3>Gold Jewellery</h3><p>Elegant gold pieces for every occasion.</p></article>
+          <article class="category"><h3>Natural Diamonds</h3><p>Premium diamond jewellery with lasting brilliance.</p></article>
+          <article class="category"><h3>Luxury Watches</h3><p>Selected timepieces, available in Dubai.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="featured-section" id="featured" data-reveal>
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Selected pieces</span>
+          <h2>Featured Jewellery &amp; Watches</h2>
+          <p>Discover distinctive pieces available through Mohammad Shojaei Jewellery in Dubai Gold Souq.</p>
+        </div>
+        <div class="featured-grid">
+          <article class="featured-card">
+            <img src="https://mohammadshojaei.ae/assets/img/products/jewellery/product-33-6abe4f726ed66.jpg" alt="Gold necklace" loading="lazy">
+            <div class="featured-card-body"><h3>Gold Necklace</h3><p>Gold jewellery</p></div>
+          </article>
+          <article class="featured-card">
+            <img src="https://mohammadshojaei.ae/assets/img/products/diamonds/product-36-6abe4ffe50fee.jpg" alt="Gold necklace set with diamonds" loading="lazy">
+            <div class="featured-card-body"><h3>Diamond Set</h3><p>Natural diamonds</p></div>
+          </article>
+          <article class="featured-card">
+            <img src="https://mohammadshojaei.ae/assets/img/products/jewellery/product-34-6abe4fb79d868.jpg" alt="Gold necklace with diamonds" loading="lazy">
+            <div class="featured-card-body"><h3>Diamond Necklace</h3><p>Gold and diamonds</p></div>
+          </article>
+          <article class="featured-card">
+            <img src="https://mohammadshojaei.ae/assets/img/products/watches/product-23-6abe49db17b75.webp" alt="Rolex luxury watch" loading="lazy">
+            <div class="featured-card-body"><h3>Luxury Timepiece</h3><p>Selected watches</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="video-ad" aria-label="Mohammad Shojaei Jewellery video advertisement" data-reveal>
+      <video autoplay muted loop playsinline preload="metadata" aria-label="Jewellery and luxury watch showcase video">
+        <source src="https://mohammadshojaei.ae/assets/video/35575-407595493.mp4-420-4.mp4" type="video/mp4">
+      </video>
+      <div class="video-ad-overlay" aria-hidden="true"></div>
+      <div class="container video-ad-content">
+        <div class="video-ad-copy">
+          <span class="eyebrow">Gold · Diamonds · Watches · Silver</span>
+          <h2>Find something unforgettable.</h2>
+          <p>Visit Mohammad Shojaei Jewellery in Dubai Gold Souq for fine pieces, precious metals, custom orders and trusted service.</p>
+          <div class="video-ad-actions">
+            <a class="hero-link" href="https://wa.me/971543999954">Contact us on WhatsApp</a>
+            <a class="hero-link-secondary" href="#gold-rates">Check Gold Rates</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="shop-ad" data-reveal>
+      <div class="container shop-ad-inner">
+        <div class="shop-ad-copy">
+          <span class="eyebrow">Visit our showroom</span>
+          <h2>Meet us in Dubai Gold Souq</h2>
+          <p>Opposite Gold Centre Building, Deira, Dubai · Gold jewellery, diamonds and watches.</p>
+        </div>
+        <div class="shop-ad-actions">
+          <a class="shop-ad-link" href="https://wa.me/971543999954">Chat on WhatsApp</a>
+          <a class="shop-ad-link-alt" href="https://www.google.com/maps/search/?api=1&query=25.2706299,55.2983372" target="_blank" rel="noopener">Open in Maps</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="rates-section" id="gold-rates" data-reveal>
+      <div class="container">
+        <div class="rates-heading">
+          <div class="section-heading">
+            <span class="eyebrow">Dubai market snapshot</span>
+            <h2>Gold Rates in Dubai</h2>
+            <p>Check today's indicative AED prices per gram before you visit us.</p>
+          </div>
+          <span class="market-status">Indicative rates</span>
+        </div>
+        <iframe class="rates-frame" src="gold-rates.html#gold-rates" title="Gold Rates in Dubai"></iframe>
+      </div>
+    </section>
+
+    <section class="products-section" id="silver-products" data-reveal>
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Precious metals</span>
+          <h2>Silver Bars</h2>
+          <p>Selected fine silver bars available from Mohammad Shojaei Jewellery.</p>
+        </div>
+        <div class="products-grid">
+          <article class="product-card">
+            <img class="product-image" src="assets/img/products/silver/silver-bar-namoh.jpg" alt="NAMOH 1 kilo fine silver bar, 999.9 purity" loading="lazy">
+            <div class="product-info">
+              <h3>NAMOH Silver Bar</h3>
+              <p class="product-meta">1 kilo · Fine silver · 999.9</p>
+              <a class="product-link" href="https://wa.me/971543999954?text=Hi%2C%20I%27m%20interested%20in%20the%20NAMOH%20silver%20bar">Ask on WhatsApp</a>
+            </div>
+          </article>
+          <article class="product-card">
+            <img class="product-image" src="assets/img/products/silver/silver-bar-prestige.jpg" alt="Prestige Precious Metals 1000 gram fine silver bar" loading="lazy">
+            <div class="product-info">
+              <h3>Prestige Silver Bar</h3>
+              <p class="product-meta">1000 g · Fine silver · 999.9</p>
+              <a class="product-link" href="https://wa.me/971543999954?text=Hi%2C%20I%27m%20interested%20in%20the%20Prestige%20silver%20bar">Ask on WhatsApp</a>
+            </div>
+          </article>
+          <article class="product-card">
+            <img class="product-image" src="assets/img/products/silver/silver-bar-abc.jpg" alt="ABC 1 kilo fine silver bar, 999.5 purity" loading="lazy">
+            <div class="product-info">
+              <h3>ABC Silver Bar</h3>
+              <p class="product-meta">1 kilo · Fine silver · 999.5</p>
+              <a class="product-link" href="https://wa.me/971543999954?text=Hi%2C%20I%27m%20interested%20in%20the%20ABC%20silver%20bar">Ask on WhatsApp</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">© 2026 Mohammad Shojaei Jewellery · Dubai Gold Souq, Deira</div>
+  </footer>
+  <a class="floating-whatsapp" href="https://wa.me/971543999954" aria-label="Contact us on WhatsApp">WA</a>
+  <script>
+    const themeToggle = document.querySelector('.theme-toggle');
+    const savedTheme = localStorage.getItem('site-theme');
+    if (savedTheme === 'dark') document.body.classList.add('dark-mode');
+    function updateThemeButton() {
+      const isDark = document.body.classList.contains('dark-mode');
+      themeToggle.textContent = isDark ? 'Light mode' : 'Dark mode';
+      themeToggle.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+      themeToggle.setAttribute('aria-pressed', String(isDark));
+    }
+    updateThemeButton();
+    themeToggle.addEventListener('click', () => {
+      const isDark = document.body.classList.toggle('dark-mode');
+      localStorage.setItem('site-theme', isDark ? 'dark' : 'light');
+      updateThemeButton();
+    });
+    window.addEventListener('storage', event => {
+      if (event.key !== 'site-theme') return;
+      document.body.classList.toggle('dark-mode', event.newValue === 'dark');
+      updateThemeButton();
+    });
+
+    const revealItems = document.querySelectorAll('[data-reveal]');
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.12 });
+    revealItems.forEach(item => revealObserver.observe(item));
+  </script>
+</body>
+</html>

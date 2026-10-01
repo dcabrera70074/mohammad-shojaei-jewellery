@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gold Rates in Dubai — Mohammad Shojaei Jewellery</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+  :root {
+    --gold: #b68d40;
+    --gold-dark: #8a6a2f;
+    --navy: #142b43;
+    --mist: #f3f7fc;
+    --cream: #fffdf9;
+    --text-dark: #2b2b2b;
+    --muted: #766f65;
+    --line: #e8ddc8;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: var(--mist);
+    color: var(--text-dark);
+    padding: 0 20px 48px;
+  }
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .topbar {
+    background: var(--navy);
+    color: #fff;
+    margin: 0 -20px;
+    padding: 9px 20px;
+  }
+  .topbar-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+  }
+  .social-links { display: flex; gap: 12px; }
+  .social-links a { color: #d8b76e; text-decoration: none; }
+  .topbar a { color: inherit; text-decoration: none; }
+  .site-header {
+    background: var(--cream);
+    margin: 0 -20px 52px;
+    border-bottom: 1px solid #e9edf2;
+    padding: 18px 20px;
+  }
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .site-header {
+    display: block;
+  }
+  .brand {
+    color: var(--text-dark);
+    font-family: Georgia, serif;
+    font-size: 18px;
+    letter-spacing: 0.3px;
+  }
+  .brand span { color: var(--gold-dark); }
+  .main-nav { display: flex; gap: 22px; }
+  .main-nav a {
+    color: var(--text-dark);
+    font-size: 12px;
+    text-decoration: none;
+  }
+  .main-nav a:hover { color: var(--gold-dark); }
+  .header-whatsapp {
+    background: #25d366;
+    color: #073b1b;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 10px 14px;
+    text-decoration: none;
+  }
+  .theme-toggle {
+    padding: 10px 12px;
+    color: var(--text-dark);
+    background: transparent;
+    border: 1px solid var(--line);
+    cursor: pointer;
+    font: inherit;
+    font-size: 12px;
+  }
+  .status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--gold-dark);
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .status::before {
+    content: '';
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #5a9a68;
+  }
+  .intro { max-width: 560px; }
+  h1 {
+    font-family: Georgia, serif;
+    font-size: clamp(32px, 5vw, 46px);
+    line-height: 1.08;
+    font-weight: 400;
+    margin: 0 0 10px;
+  }
+  .subtitle {
+    color: var(--muted);
+    margin: 0 0 30px;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .rates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-bottom: 36px;
+  }
+  .rate-card {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    transition: transform 160ms ease, box-shadow 160ms ease;
+  }
+  .rate-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(93, 68, 28, 0.10);
+  }
+  .rate-card .karat {
+    font-size: 14px;
+    color: var(--gold-dark);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+  .rate-card .price {
+    font-size: 26px;
+    font-weight: 700;
+    margin: 8px 0 4px;
+    color: var(--text-dark);
+  }
+  .rate-card .unit {
+    font-size: 12px;
+    color: #999;
+  }
+  .chart-section {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 24px;
+  }
+  .chart-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+  }
+  .chart-section h2 {
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 16px;
+  }
+  .note {
+    font-size: 12px;
+    color: #999;
+    margin-top: 20px;
+    text-align: center;
+  }
+  .last-updated {
+    font-size: 12px;
+    color: var(--gold-dark);
+    margin: 0 0 20px;
+  }
+  .chart-fallback {
+    color: var(--muted);
+    font-size: 14px;
+    padding: 32px 0;
+  }
+  @media (max-width: 520px) {
+    body { padding: 24px 16px 36px; }
+    .topbar { margin: 0 -16px; padding: 9px 16px; }
+    .topbar-inner { flex-wrap: wrap; }
+    .social-links { width: 100%; gap: 10px; margin-top: 4px; }
+    .site-header { margin: -24px -16px 40px; padding: 16px; }
+    .main-nav { display: none; }
+    .header-inner { gap: 12px; }
+    .status { font-size: 0; gap: 0; }
+    .status::before { width: 8px; height: 8px; }
+    .chart-section { padding: 18px 14px; }
+    .chart-heading { display: block; }
+  }
+  body.dark-mode {
+    --mist: #101923;
+    --cream: #172431;
+    --text-dark: #f5f1e9;
+    --muted: #b8c1ca;
+    --line: #334452;
+    background: var(--mist);
+  }
+  body.dark-mode .site-header,
+  body.dark-mode .rate-card,
+  body.dark-mode .chart-section { background: var(--cream); }
+  body.dark-mode .subtitle,
+  body.dark-mode .unit,
+  body.dark-mode .note { color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="topbar">
+    <div class="topbar-inner">
+      <a href="tel:+971543999954">+971 54 399 9954</a>
+      <span>Dubai Gold Souq, Deira</span>
+      <div class="social-links" aria-label="Social and marketplace links">
+        <a href="https://www.facebook.com/profile.php?id=61594684529999" target="_blank" rel="noopener">Facebook</a>
+        <a href="https://www.tiktok.com/@mohammad.shojaei.jewelry" target="_blank" rel="noopener">TikTok</a>
+        <a href="https://www.instagram.com/mohammad.shojaei.jewellery/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.noon.com/uae-en/seller/p-621040/" target="_blank" rel="noopener">Noon</a>
+      </div>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="https://mohammadshojaei.ae/">Mohammad Shojaei <span>Jewellery</span></a>
+      <nav class="main-nav" aria-label="Primary">
+        <a href="https://mohammadshojaei.ae/">Home</a>
+        <a href="https://mohammadshojaei.ae/jewellery.php">Jewellery</a>
+        <a href="https://mohammadshojaei.ae/diamonds.php">Diamonds</a>
+        <a href="https://mohammadshojaei.ae/watches.php">Watches</a>
+      </nav>
+      <a class="header-whatsapp" href="https://wa.me/971543999954">WhatsApp</a>
+      <button class="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">Dark mode</button>
+    </div>
+  </header>
+
+  <main id="gold-rates">
+    <div class="intro">
+      <h1>Gold Rates in Dubai</h1>
+      <p class="subtitle">Today's indicative gold prices in the UAE, from Mohammad Shojaei Jewellery in Dubai Gold Souq.</p>
+    </div>
+
+    <div class="last-updated" aria-live="polite">Last updated: <span id="updatedTime"></span></div>
+
+    <section class="rates-grid" id="ratesGrid" aria-label="Today's gold rates">
+      <!-- Cards injected by JS -->
+    </section>
+
+    <section class="chart-section" aria-labelledby="trendTitle">
+      <div class="chart-heading">
+        <h2 id="trendTitle">7-Day Trend</h2>
+        <span class="unit">AED per gram · 24K</span>
+      </div>
+      <canvas id="goldChart" height="100" aria-label="Seven-day 24K gold price trend"></canvas>
+      <div id="chartFallback" class="chart-fallback" hidden>Trend data is unavailable right now.</div>
+    </section>
+
+    <p class="note">Rates are indicative and may vary at checkout. Contact us for confirmed pricing.</p>
+  </main>
+
+</div>
+
+<script>
+  const themeToggle = document.querySelector('.theme-toggle');
+  const savedTheme = localStorage.getItem('site-theme');
+  if (savedTheme === 'dark') document.body.classList.add('dark-mode');
+  function updateThemeButton() {
+    const isDark = document.body.classList.contains('dark-mode');
+    themeToggle.textContent = isDark ? 'Light mode' : 'Dark mode';
+    themeToggle.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+    themeToggle.setAttribute('aria-pressed', String(isDark));
+  }
+  updateThemeButton();
+  themeToggle.addEventListener('click', () => {
+    const isDark = document.body.classList.toggle('dark-mode');
+    localStorage.setItem('site-theme', isDark ? 'dark' : 'light');
+    updateThemeButton();
+  });
+  window.addEventListener('storage', event => {
+    if (event.key !== 'site-theme') return;
+    document.body.classList.toggle('dark-mode', event.newValue === 'dark');
+    updateThemeButton();
+  });
+
+  // Replace this snapshot with the approved pricing feed when one is available.
+  const rates = [
+    { karat: "24K", price: 385.50 },
+    { karat: "22K", price: 353.50 },
+    { karat: "21K", price: 337.30 },
+    { karat: "18K", price: 289.10 }
+  ];
+
+  const trend = {
+    labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+    data: [380.2, 381.0, 383.4, 382.1, 384.0, 384.9, 385.5]
+  };
+  // ---------------------------------------------------------------------
+
+  const grid = document.getElementById('ratesGrid');
+  rates.forEach(r => {
+    grid.innerHTML += `
+      <div class="rate-card">
+        <div class="karat">${r.karat} GOLD</div>
+        <div class="price">${r.price.toFixed(2)} AED</div>
+        <div class="unit">per gram</div>
+      </div>`;
+  });
+
+  document.getElementById('updatedTime').textContent = new Date().toLocaleString();
+
+  const chartCanvas = document.getElementById('goldChart');
+  const chartFallback = document.getElementById('chartFallback');
+  if (typeof Chart === 'undefined') {
+    chartCanvas.hidden = true;
+    chartFallback.hidden = false;
+  } else {
+    const ctx = chartCanvas.getContext('2d');
+    new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: trend.labels,
+      datasets: [{
+        label: '24K AED/gram',
+        data: trend.data,
+        borderColor: '#b68d40',
+        backgroundColor: 'rgba(182,141,64,0.1)',
+        borderWidth: 2,
+        tension: 0.3,
+        fill: true,
+        pointBackgroundColor: '#b68d40'
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: false } },
+        scales: {
+        y: { ticks: { color: '#6b6b6b' }, grid: { color: '#f0e9da' } },
+        x: { ticks: { color: '#6b6b6b' }, grid: { display: false } }
+        }
+      }
+    });
+  }
+</script>
+
+</body>
+</html>
