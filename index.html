@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mohammad Shojaei Jewellery | Dubai Gold Souq</title>
   <meta name="description" content="Gold jewellery, natural diamonds and luxury watches from Mohammad Shojaei Jewellery in Dubai Gold Souq.">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
   <style>
     :root {
       --navy: #142b43;
@@ -65,7 +66,23 @@
     .rates-heading { display: flex; align-items: end; justify-content: space-between; gap: 28px; }
     .market-status { display: inline-flex; align-items: center; gap: 8px; padding: 9px 12px; color: var(--gold-dark); background: rgba(255,253,249,.72); font-size: 12px; white-space: nowrap; }
     .market-status::before { width: 7px; height: 7px; border-radius: 50%; content: ''; background: #5a9a68; box-shadow: 0 0 0 5px rgba(90,154,104,.12); }
-    .rates-frame { width: 100%; min-height: 730px; border: 0; background: transparent; }
+    .rates-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 28px 0 24px; }
+    .rate-card { padding: 19px 14px; text-align: center; background: var(--cream); border: 1px solid var(--line); }
+    .rate-karat { color: var(--gold-dark); font-size: 13px; font-weight: 700; }
+    .rate-price { margin: 9px 0 3px; color: var(--ink); font-size: 24px; font-weight: 700; }
+    .rate-unit { color: var(--muted); font-size: 12px; }
+    .rate-change { display: block; min-height: 17px; margin-top: 7px; font-size: 11px; }
+    .rate-change-up { color: #28764a; }
+    .rate-change-down { color: #a23e3e; }
+    .market-status[data-status="manual"]::before { background: #c38b32; box-shadow: 0 0 0 5px rgba(195,139,50,.12); }
+    .karat-chart-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .karat-chart-card { min-width: 0; padding: 18px; background: var(--cream); border: 1px solid var(--line); }
+    .karat-chart-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 12px; }
+    .karat-chart-heading h3 { margin: 0; color: var(--ink); font: 20px Georgia, serif; }
+    .chart-current { color: var(--gold-dark); font-size: 13px; font-weight: 700; white-space: nowrap; }
+    .karat-chart-wrap { position: relative; height: 245px; }
+    .chart-notice { margin: 10px 0 0; color: var(--muted); font-size: 12px; line-height: 1.55; }
+    .rate-note { margin-top: 16px; color: var(--muted); font-size: 12px; line-height: 1.6; }
     .products-section { padding: 86px 0; background: var(--cream); }
     .products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
     .product-card { overflow: hidden; background: white; border: 1px solid var(--line); transition: transform 220ms ease, box-shadow 220ms ease; }
@@ -95,6 +112,15 @@
     .trust-copy { max-width: 800px; }
     .trust-copy h2 { color: white; }
     .trust-copy p { color: #d8e1e8; font-size: 16px; line-height: 1.8; }
+    .trust-focus { margin-top: 20px; color: #e7cc91; font-size: 13px; font-weight: 700; }
+    .team-section { padding: 82px 0; background: var(--cream); }
+    .team-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+    .team-photo { position: relative; overflow: hidden; margin: 0; background: #dce4e9; }
+    .team-photo img { display: block; width: 100%; height: 220px; object-fit: cover; }
+    .team-photo figcaption { padding: 11px 12px; color: var(--ink); background: var(--mist); font-size: 12px; font-weight: 600; }
+    .message-band { padding: 44px 0; color: white; background: #203a52; text-align: center; }
+    .message-band h2 { margin: 0 0 9px; color: white; }
+    .message-band p { margin: 8px 0 0; color: #e2e9ef; line-height: 1.6; }
     .featured-section { padding: 86px 0; background: var(--mist); }
     .featured-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
     .featured-card { overflow: hidden; background: var(--cream); border: 1px solid var(--line); transition: transform 220ms ease, box-shadow 220ms ease; }
@@ -138,6 +164,9 @@
       .categories { grid-template-columns: 1fr; }
       .products-grid { grid-template-columns: 1fr; }
       .featured-grid { grid-template-columns: repeat(2, 1fr); }
+      .rates-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .karat-chart-grid { grid-template-columns: 1fr; }
+      .team-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .why-us-grid { grid-template-columns: 1fr; }
       .trade-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .process-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -170,6 +199,8 @@
     body.dark-mode .trade-section, body.dark-mode .diamond-section { background: var(--cream); }
     body.dark-mode .process-section, body.dark-mode .watch-section { background: var(--mist); }
     body.dark-mode .trade-card, body.dark-mode .process-card, body.dark-mode .diamond-card { background: #1c2b38; }
+    body.dark-mode .rate-card, body.dark-mode .karat-chart-card { background: var(--cream); }
+    body.dark-mode .team-photo figcaption { color: var(--ink); background: #1c2b38; }
   </style>
 </head>
 <body>
@@ -328,11 +359,25 @@
           <div class="section-heading">
             <span class="eyebrow">Dubai market snapshot</span>
             <h2>Gold Rates in Dubai</h2>
-            <p>Check today's indicative AED prices per gram before you visit us.</p>
+            <p>Individual AED-per-gram rates and separate price histories for each karat.</p>
           </div>
-          <span class="market-status">Indicative rates</span>
+            <span class="market-status" id="marketStatus" data-status="manual">Manual rates · checking market</span>
         </div>
-        <iframe class="rates-frame" src="gold-rates.html#gold-rates" title="Gold Rates in Dubai"></iframe>
+          <p class="last-updated" aria-live="polite">Last Updated (UAE): <time id="ratesUpdatedAt">Checking…</time></p>
+          <div class="rates-grid" aria-label="Gold rates per gram in AED">
+            <article class="rate-card"><div class="rate-karat">24K GOLD</div><div class="rate-price" id="rate-24K">385.50 AED</div><div class="rate-unit">per gram</div><span class="rate-change" id="change-24K">Manual rate</span></article>
+            <article class="rate-card"><div class="rate-karat">22K GOLD</div><div class="rate-price" id="rate-22K">353.50 AED</div><div class="rate-unit">per gram</div><span class="rate-change" id="change-22K">Manual rate</span></article>
+            <article class="rate-card"><div class="rate-karat">21K GOLD</div><div class="rate-price" id="rate-21K">337.30 AED</div><div class="rate-unit">per gram</div><span class="rate-change" id="change-21K">Manual rate</span></article>
+            <article class="rate-card"><div class="rate-karat">18K GOLD</div><div class="rate-price" id="rate-18K">289.10 AED</div><div class="rate-unit">per gram</div><span class="rate-change" id="change-18K">Manual rate</span></article>
+          </div>
+          <div class="karat-chart-grid" aria-label="Individual gold rate charts">
+            <article class="karat-chart-card"><div class="karat-chart-heading"><h3>24K GOLD RATE</h3><span class="chart-current" id="chart-current-24K">385.50 AED / gram</span></div><div class="karat-chart-wrap"><canvas id="chart-24K" aria-label="24K gold historical rate in AED per gram"></canvas></div></article>
+            <article class="karat-chart-card"><div class="karat-chart-heading"><h3>22K GOLD RATE</h3><span class="chart-current" id="chart-current-22K">353.50 AED / gram</span></div><div class="karat-chart-wrap"><canvas id="chart-22K" aria-label="22K gold historical rate in AED per gram"></canvas></div></article>
+            <article class="karat-chart-card"><div class="karat-chart-heading"><h3>21K GOLD RATE</h3><span class="chart-current" id="chart-current-21K">337.30 AED / gram</span></div><div class="karat-chart-wrap"><canvas id="chart-21K" aria-label="21K gold historical rate in AED per gram"></canvas></div></article>
+            <article class="karat-chart-card"><div class="karat-chart-heading"><h3>18K GOLD RATE</h3><span class="chart-current" id="chart-current-18K">289.10 AED / gram</span></div><div class="karat-chart-wrap"><canvas id="chart-18K" aria-label="18K gold historical rate in AED per gram"></canvas></div></article>
+          </div>
+          <p class="chart-notice" id="chartNotice">Each graph records successful live-market observations in this browser. No historical prices are fabricated.</p>
+          <p class="rate-note">Live values are spot-market estimates converted to AED per gram. If the market feed is unavailable, the individually configured manual rates remain visible and are labeled accordingly. Final shop prices may vary.</p>
       </div>
     </section>
 
@@ -501,6 +546,193 @@
       document.body.classList.toggle('dark-mode', event.newValue === 'dark');
       updateThemeButton();
     });
+
+    const karatRates = [
+      { karat: '24K', purity: 24 / 24, manualAEDPerGram: 385.50, color: '#b68d40' },
+      { karat: '22K', purity: 22 / 24, manualAEDPerGram: 353.50, color: '#8a6a2f' },
+      { karat: '21K', purity: 21 / 24, manualAEDPerGram: 337.30, color: '#527b70' },
+      { karat: '18K', purity: 18 / 24, manualAEDPerGram: 289.10, color: '#526b88' }
+    ];
+    const goldPriceEndpoint = 'https://api.gold-api.com/price/XAU';
+    const usdToAed = 3.6725;
+    const gramsPerTroyOunce = 31.1034768;
+    const historyKeyPrefix = 'mshj-gold-history-v1-';
+    const historyLimit = 2000;
+    const charts = new Map();
+    const marketStatus = document.getElementById('marketStatus');
+    const ratesUpdatedAt = document.getElementById('ratesUpdatedAt');
+    const chartNotice = document.getElementById('chartNotice');
+    const uaeTime = new Intl.DateTimeFormat('en-AE', {
+      timeZone: 'Asia/Dubai',
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false
+    });
+    const chartTime = new Intl.DateTimeFormat('en-AE', {
+      timeZone: 'Asia/Dubai',
+      day: '2-digit',
+      month: 'short',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false
+    });
+
+    function readKaratHistory(karat) {
+      try {
+        const saved = JSON.parse(localStorage.getItem(historyKeyPrefix + karat) || '[]');
+        return Array.isArray(saved) ? saved.filter(point => Number.isFinite(point.time) && Number.isFinite(point.price)) : [];
+      } catch {
+        return [];
+      }
+    }
+
+    function saveKaratHistory(karat, history) {
+      try {
+        localStorage.setItem(historyKeyPrefix + karat, JSON.stringify(history.slice(-historyLimit)));
+      } catch {
+        chartNotice.textContent = 'Live rates are updating, but this browser cannot save longer-term chart history.';
+      }
+    }
+
+    function formatPrice(price) {
+      return `${price.toFixed(2)} AED`;
+    }
+
+    function movementLabel(current, previous) {
+      if (!previous) return 'Collecting live history';
+      const difference = current - previous.price;
+      if (Math.abs(difference) < 0.005) return 'No change since previous update';
+      const direction = difference > 0 ? 'up' : 'down';
+      const arrow = difference > 0 ? '▲' : '▼';
+      const change = (Math.abs(difference) / previous.price) * 100;
+      return `${arrow} ${Math.abs(difference).toFixed(2)} AED (${change.toFixed(2)}%) ${direction}`;
+    }
+
+    function renderKarat(karat, price, isLive, time) {
+      document.getElementById(`rate-${karat}`).textContent = formatPrice(price);
+      document.getElementById(`chart-current-${karat}`).textContent = `${price.toFixed(2)} AED / gram`;
+      const changeElement = document.getElementById(`change-${karat}`);
+      changeElement.className = 'rate-change';
+      if (!isLive) {
+        changeElement.textContent = 'Manual rate';
+        return;
+      }
+
+      const history = readKaratHistory(karat);
+      const previous = history[history.length - 1];
+      const movement = price - (previous?.price ?? price);
+      changeElement.textContent = movementLabel(price, previous);
+      if (movement > 0.005) changeElement.classList.add('rate-change-up');
+      if (movement < -0.005) changeElement.classList.add('rate-change-down');
+
+      history.push({ time, price });
+      saveKaratHistory(karat, history);
+      updateKaratChart(karat, history);
+    }
+
+    function updateKaratChart(karat, history) {
+      const chart = charts.get(karat);
+      if (!chart) return;
+      chart.data.labels = history.map(point => chartTime.format(new Date(point.time)));
+      chart.data.datasets[0].data = history.map(point => point.price);
+      chart.update('none');
+    }
+
+    function setupKaratCharts() {
+      if (typeof Chart === 'undefined') {
+        chartNotice.textContent = 'Price history charts are unavailable. The configured rate cards remain visible.';
+        return;
+      }
+
+      karatRates.forEach(({ karat, color }) => {
+        const chart = new Chart(document.getElementById(`chart-${karat}`), {
+          type: 'line',
+          data: {
+            labels: [],
+            datasets: [{
+              label: `${karat} · AED per gram`,
+              data: [],
+              borderColor: color,
+              backgroundColor: `${color}20`,
+              borderWidth: 2,
+              pointRadius: 2,
+              pointHoverRadius: 5,
+              tension: 0.16,
+              fill: true
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: { mode: 'nearest', intersect: false },
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                callbacks: {
+                  title: items => items.length ? items[0].label : '',
+                  label: item => `${karat} · ${item.parsed.y.toFixed(2)} AED / gram`
+                }
+              }
+            },
+            scales: {
+              x: {
+                title: { display: true, text: 'Date and time (Dubai)' },
+                ticks: { maxTicksLimit: 6, maxRotation: 0, color: '#64717d' },
+                grid: { display: false }
+              },
+              y: {
+                title: { display: true, text: 'AED per gram' },
+                ticks: { color: '#64717d', callback: value => `${Number(value).toFixed(0)} AED` },
+                grid: { color: 'rgba(100,113,125,.16)' }
+              }
+            }
+          }
+        });
+        charts.set(karat, chart);
+        updateKaratChart(karat, readKaratHistory(karat));
+      });
+    }
+
+    function showRateState(isLive, checkedAt) {
+      marketStatus.dataset.status = isLive ? 'live' : 'manual';
+      marketStatus.textContent = isLive ? 'Live spot estimate' : 'Manual rates · live feed unavailable';
+      ratesUpdatedAt.textContent = uaeTime.format(new Date(checkedAt)) + ' GST';
+      const observationCount = Math.max(...karatRates.map(({ karat }) => readKaratHistory(karat).length));
+      chartNotice.textContent = observationCount < 2
+        ? 'Charts contain only successful live-market observations. History will build with each successful minute update.'
+        : `Charts show ${observationCount} actual live observations per karat, saved in this browser. No historical prices are fabricated.`;
+    }
+
+    async function refreshGoldRates() {
+      const checkedAt = Date.now();
+      try {
+        const response = await fetch(goldPriceEndpoint, { cache: 'no-store' });
+        if (!response.ok) throw new Error('Live market feed unavailable');
+        const payload = await response.json();
+        const usdPerTroyOunce = Number(payload.price ?? payload.data?.price);
+        if (!Number.isFinite(usdPerTroyOunce) || usdPerTroyOunce <= 0) throw new Error('Invalid live market price');
+
+        const spotAedPerGram = usdPerTroyOunce * usdToAed / gramsPerTroyOunce;
+        const observationTime = Date.now();
+        karatRates.forEach(({ karat, purity }) => {
+          renderKarat(karat, spotAedPerGram * purity, true, observationTime);
+        });
+        showRateState(true, observationTime);
+      } catch {
+        karatRates.forEach(({ karat, manualAEDPerGram }) => {
+          renderKarat(karat, manualAEDPerGram, false, checkedAt);
+        });
+        showRateState(false, checkedAt);
+      }
+    }
+
+    setupKaratCharts();
+    refreshGoldRates();
+    window.setInterval(refreshGoldRates, 60000);
 
     const revealItems = document.querySelectorAll('[data-reveal]');
     const revealObserver = new IntersectionObserver((entries, observer) => {
