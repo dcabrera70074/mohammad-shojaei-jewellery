@@ -75,6 +75,26 @@
     .product-info h3 { margin: 0 0 7px; font: 25px Georgia, serif; }
     .product-meta { margin: 0 0 18px; color: var(--muted); font-size: 13px; }
     .product-link { display: inline-block; padding: 10px 13px; color: #063d1c; background: #25d366; font-size: 12px; font-weight: 700; text-decoration: none; }
+    .trade-section, .process-section, .diamond-section, .watch-section, .trust-section { padding: 82px 0; }
+    .trade-section, .diamond-section { background: var(--cream); }
+    .process-section, .watch-section { background: var(--mist); }
+    .trade-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .trade-card { display: flex; min-height: 86px; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 20px; background: var(--mist); border: 1px solid var(--line); }
+    .trade-card h3 { margin: 0; font: 19px Georgia, serif; }
+    .trade-card a { flex: 0 0 auto; color: var(--gold-dark); font-size: 12px; font-weight: 700; text-decoration: none; }
+    .process-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+    .process-card, .diamond-card { overflow: hidden; margin: 0; background: var(--cream); border: 1px solid var(--line); }
+    .process-card img, .diamond-card img { display: block; width: 100%; height: 230px; object-fit: cover; background: #dce4e9; }
+    .process-card figcaption, .diamond-card figcaption { padding: 13px 14px; font-size: 13px; font-weight: 600; }
+    .image-note { margin: 16px 0 0; color: var(--muted); font-size: 12px; }
+    .diamond-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+    .watch-layout { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 44px; }
+    .watch-image { display: block; width: 100%; max-height: 460px; aspect-ratio: 4 / 3; object-fit: cover; }
+    .watch-copy p { color: var(--muted); line-height: 1.75; }
+    .trust-section { color: white; background: var(--navy); }
+    .trust-copy { max-width: 800px; }
+    .trust-copy h2 { color: white; }
+    .trust-copy p { color: #d8e1e8; font-size: 16px; line-height: 1.8; }
     .featured-section { padding: 86px 0; background: var(--mist); }
     .featured-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
     .featured-card { overflow: hidden; background: var(--cream); border: 1px solid var(--line); transition: transform 220ms ease, box-shadow 220ms ease; }
@@ -119,6 +139,11 @@
       .products-grid { grid-template-columns: 1fr; }
       .featured-grid { grid-template-columns: repeat(2, 1fr); }
       .why-us-grid { grid-template-columns: 1fr; }
+      .trade-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .process-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .diamond-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .watch-layout { grid-template-columns: 1fr; gap: 24px; }
+      .process-card img, .diamond-card img { height: 190px; }
       h2 { font-size: 34px; }
       .topbar-inner { display: block; line-height: 1.8; }
       .social-links { gap: 10px; line-height: 1.5; }
@@ -132,6 +157,7 @@
     }
     @media (max-width: 420px) {
       .featured-grid { grid-template-columns: 1fr; }
+      .trade-grid, .process-grid, .diamond-grid { grid-template-columns: 1fr; }
     }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
@@ -141,6 +167,9 @@
     body.dark-mode .section-heading p, body.dark-mode .category p, body.dark-mode .featured-card p { color: var(--muted); }
     body.dark-mode .rates-section { background: #1c2b38; }
     body.dark-mode .products-section { background: #101923; }
+    body.dark-mode .trade-section, body.dark-mode .diamond-section { background: var(--cream); }
+    body.dark-mode .process-section, body.dark-mode .watch-section { background: var(--mist); }
+    body.dark-mode .trade-card, body.dark-mode .process-card, body.dark-mode .diamond-card { background: #1c2b38; }
   </style>
 </head>
 <body>
@@ -340,6 +369,109 @@
             </div>
           </article>
         </div>
+      </div>
+    </section>
+
+    <section class="trade-section" id="buy-sell" data-reveal>
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Precious metals and luxury items</span>
+          <h2>WE BUY. WE SELL. WE VALUE.</h2>
+          <p>With many years of professional experience, our team specializes in gold, diamonds, silver, jewellery, and luxury watches. Whether you are looking to buy, sell, or have an item professionally evaluated, our experienced team is here to assist you.</p>
+        </div>
+        <div class="trade-grid">
+          <article class="trade-card"><h3>We Buy Gold</h3><a href="https://wa.me/971543999954">Enquire ↗</a></article>
+          <article class="trade-card"><h3>We Sell Gold</h3><a href="https://wa.me/971543999954">Enquire ↗</a></article>
+          <article class="trade-card"><h3>We Buy Diamonds</h3><a href="https://wa.me/971543999954">Enquire ↗</a></article>
+          <article class="trade-card"><h3>We Sell Diamonds</h3><a href="https://wa.me/971543999954">Enquire ↗</a></article>
+          <article class="trade-card"><h3>We Buy Silver</h3><a href="https://wa.me/971543999954">Enquire ↗</a></article>
+          <article class="trade-card"><h3>We Sell Silver</h3><a href="https://wa.me/971543999954">Enquire ↗</a></article>
+          <article class="trade-card"><h3>We Buy Luxury Watches</h3><a href="https://wa.me/971543999954">Enquire ↗</a></article>
+          <article class="trade-card"><h3>We Sell Luxury Watches</h3><a href="https://wa.me/971543999954">Enquire ↗</a></article>
+          <article class="trade-card"><h3>Gold Melting &amp; Processing</h3><a href="https://wa.me/971543999954">Enquire ↗</a></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="process-section" id="gold-melting" data-reveal>
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Care at every stage</span>
+          <h2>PROFESSIONAL GOLD MELTING</h2>
+          <p>From jewellery and gold items to professionally processed gold, our experienced team handles the process with care and professionalism.</p>
+        </div>
+        <div class="process-grid">
+          <figure class="process-card">
+            <img src="https://images.pexels.com/photos/1050321/pexels-photo-1050321.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=700" alt="Jewellery specialist inspecting a diamond ring with a loupe" loading="lazy">
+            <figcaption>Gold and jewellery inspection</figcaption>
+          </figure>
+          <figure class="process-card">
+            <img src="https://images.pexels.com/photos/8667532/pexels-photo-8667532.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=700" alt="Precision balance scale used for careful weighing" loading="lazy">
+            <figcaption>Precision weighing</figcaption>
+          </figure>
+          <figure class="process-card">
+            <img src="https://images.pexels.com/photos/6263140/pexels-photo-6263140.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=700" alt="Metal being heated in a crucible with a jeweller's torch" loading="lazy">
+            <figcaption>Professional melting equipment</figcaption>
+          </figure>
+          <figure class="process-card">
+            <img src="https://images.pexels.com/photos/7505186/pexels-photo-7505186.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=700" alt="Molten metal being carefully poured in a foundry" loading="lazy">
+            <figcaption>Pouring into a mould</figcaption>
+          </figure>
+          <figure class="process-card">
+            <img src="https://images.pexels.com/photos/321452/pexels-photo-321452.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=700" alt="Finished gold bars" loading="lazy">
+            <figcaption>Finished gold products</figcaption>
+          </figure>
+        </div>
+        <p class="image-note">Representative process photography. For an evaluation or processing enquiry, contact our Dubai team.</p>
+      </div>
+    </section>
+
+    <section class="diamond-section" id="diamond-evaluation" data-reveal>
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Professional evaluation</span>
+          <h2>PROFESSIONAL DIAMOND CHECKING</h2>
+          <p>Our experienced team carefully examines diamonds using professional tools and equipment, checking their characteristics, quality, authenticity, and overall value.</p>
+        </div>
+        <div class="diamond-grid">
+          <figure class="diamond-card">
+            <img src="https://images.pexels.com/photos/5912127/pexels-photo-5912127.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=700" alt="Jewellery specialist examining gemstones with a loupe" loading="lazy">
+            <figcaption>Loupe examination</figcaption>
+          </figure>
+          <figure class="diamond-card">
+            <img src="https://images.pexels.com/photos/6263155/pexels-photo-6263155.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=700" alt="Jewellery specialist using magnifying equipment at a workbench" loading="lazy">
+            <figcaption>Professional inspection tools</figcaption>
+          </figure>
+          <figure class="diamond-card">
+            <img src="https://images.pexels.com/photos/6263113/pexels-photo-6263113.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=700" alt="Hands examining a diamond ring through a magnifying glass" loading="lazy">
+            <figcaption>Close-up evaluation</figcaption>
+          </figure>
+          <figure class="diamond-card">
+            <img src="https://images.pexels.com/photos/5704716/pexels-photo-5704716.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=700" alt="Two people reviewing jewellery together at a boutique table" loading="lazy">
+            <figcaption>Reviewing jewellery together</figcaption>
+          </figure>
+        </div>
+        <p class="image-note">Representative editorial images; they do not depict our specific staff or premises.</p>
+      </div>
+    </section>
+
+    <section class="watch-section" id="watch-buying" data-reveal>
+      <div class="container watch-layout">
+        <img class="watch-image" src="https://images.pexels.com/photos/15881359/pexels-photo-15881359.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1000" alt="Watchmaker inspecting a timepiece with a loupe" loading="lazy">
+        <div class="watch-copy">
+          <span class="eyebrow">Pre-owned timepieces</span>
+          <h2>WE BUY LUXURY WATCHES</h2>
+          <p>Have a luxury watch you are considering selling? Our team provides professional inspection and evaluation of pre-owned luxury watches based on authenticity, condition, model, and market value.</p>
+          <a class="hero-link" href="https://wa.me/971543999954?text=Hello%2C%20I%27d%20like%20to%20sell%20a%20luxury%20watch">SELL YOUR LUXURY WATCH</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="trust-section" id="experience" data-reveal>
+      <div class="container trust-copy">
+        <span class="eyebrow">Experience and care</span>
+        <h2>YEARS OF EXPERIENCE. PROFESSIONAL SERVICE.</h2>
+        <p>For many years, Mohammad Shojaei Jewellery has been working with clients in Dubai to buy, sell, and professionally evaluate precious metals and luxury items with care, transparency, and personal service.</p>
       </div>
     </section>
   </main>
